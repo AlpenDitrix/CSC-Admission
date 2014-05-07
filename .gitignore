@@ -19,3 +19,8 @@
 *.exe
 *.out
 *.app
+
+*.pdb
+*.tlog
+*.idb
+*.log
