@@ -3,7 +3,7 @@
 
 using namespace std;
 
-struct topology_sortinged{
+struct topology_sorted{
 	int amount;
 	int *vertices;
 	int iterator;
@@ -16,7 +16,7 @@ struct topology_sortinged{
 		vertices[iterator--] = vertice;
 	}
 };
-std::ostream& operator<<(std::ostream &o, topology_sortinged sort) {
+std::ostream& operator<<(std::ostream &o, topology_sorted sort) {
 	for (int i = 0; i < sort.amount; i++) {
 		o << sort.vertices[i] <<' ';
 	}
@@ -30,7 +30,7 @@ bool *visited; //graph coloring
 int *start_timing; //vertices sorted in order of time when they're visited first time
 int *finish_timing; //vertices sorted in order of time when they was left
 int timing = 0; //current "visitor" time
-topology_sortinged topology_sorting;
+topology_sorted topology_sorting;
 
 //main methods
 bool check_connectivity(); //checks if vertice 'from' connected to 'to'
