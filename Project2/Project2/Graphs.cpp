@@ -1,4 +1,5 @@
 #include <vector>
+#include <deque>
 #include <iostream>
 
 using namespace std;
@@ -30,7 +31,8 @@ bool *visited; //graph coloring
 int *start_timing; //vertices sorted in order of time when they're visited first time
 int *finish_timing; //vertices sorted in order of time when they was left
 int timing = 0; //current "visitor" time
-topology_sorted topology_sorting;
+topology_sorted topology_sorting; //currently made topology sorting
+int shortest_distance(); //returns shortest distance between two vertices or -1 if they have no connection path
 
 //main methods
 bool check_connectivity(); //checks if vertice 'from' connected to 'to'
@@ -72,6 +74,7 @@ int main() {
 	/*do_topology_sorting();
 	cout << topology_sorting;*/
 	/*cout << stongly_connected_components();*/
+	/*cout << shortest_distance();*/
 	//cin >> V;
 }
 
@@ -215,4 +218,31 @@ void explore_transposed_v(int from) {
 		int vertice = transposed[from][i];
 		if (!visited[vertice]) explore_transposed_v(vertice);
 	}
+}
+/*==========================================*/
+int shortest_distance() {
+	int u, v;
+	cin >> u >> v;
+	u--; v--;
+	int *dist = new int[V];
+	for (int i = 0; i < V; i++) dist[i] = -1;
+	dist[u] = 0;
+
+	deque<int> curr_level;
+	curr_level.push_back(u);
+	while (!curr_level.empty()) {
+		int curr = curr_level.front();
+		curr_level.pop_front();
+		for (unsigned int i = 0; i < connected[curr].size(); i++){
+			int vertice = connected[curr][i];
+			if(vertice!=v){if (dist[vertice] == -1) {
+
+				curr_level.push_back(vertice);
+				dist[vertice] = dist[curr] + 1;
+			}
+			}
+			else return dist[curr] + 1;
+		}
+	}
+	return dist[v];//-1
 }
